@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.cursor-none-override,
+.cursor-none-override * {
+  cursor: none !important;
+}
+
+@media (max-width: 768px) {
+  .cursor-none-override,
+  .cursor-none-override * {
+    cursor: auto !important;
+  }
+}
