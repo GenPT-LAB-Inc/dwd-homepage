@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "editor": "vite --open /editor.html",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "content:gen": "node scripts/generate-content.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.2.10",

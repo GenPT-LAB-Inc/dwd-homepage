@@ -256,7 +256,10 @@ export default function App() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const [portfolioHoverImage, setPortfolioHoverImage] = useState(null);
   const [expandedPortfolioId, setExpandedPortfolioId] = useState(null);
-  const businessTitleLines = SECTION_BY_ID.business.titleLines ?? [SECTION_BY_ID.business.title];
+  const businessTitleLines =
+    SECTION_BY_ID.business.titleLines && SECTION_BY_ID.business.titleLines.length > 0
+      ? SECTION_BY_ID.business.titleLines
+      : [SECTION_BY_ID.business.title];
 
   const togglePortfolio = (id) => {
     setExpandedPortfolioId(expandedPortfolioId === id ? null : id);
@@ -436,7 +439,21 @@ export default function App() {
                   className="group relative bg-white h-[400px] border border-slate-200 overflow-hidden cursor-none interactive hover:border-blue-600 hover:border-2 transition-all duration-300 shadow-sm hover:shadow-xl hover:z-10"
                 >
                   <div className="absolute inset-0 bg-slate-200 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-500">
-                     <Users className="w-24 h-24 text-slate-400 group-hover:text-blue-600 group-hover:scale-110 transition-transform duration-500" />
+                    {member.image ? (
+                      <img 
+                        src={member.image} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextElementSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <Users 
+                      className="w-24 h-24 text-slate-400 group-hover:text-blue-600 group-hover:scale-110 transition-transform duration-500"
+                      style={{ display: member.image ? 'none' : 'block' }}
+                    />
                   </div>
                   <div className="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-slate-900/90 to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <h3 className="text-white text-xl font-bold">{member.name}</h3>
