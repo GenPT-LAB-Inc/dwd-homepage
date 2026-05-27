@@ -67,12 +67,13 @@ const CustomCursor = () => {
   return (
     <motion.div
       className="fixed top-0 left-0 border-2 border-blue-600 rounded-full pointer-events-none z-[60] hidden md:flex items-center justify-center mix-blend-exclusion"
+      style={{ backgroundColor: "rgba(37, 99, 235, 0)" }}
       animate={{ 
         x: mousePosition.x - (isHovering ? 32 : 16), 
         y: mousePosition.y - (isHovering ? 32 : 16),
         width: isHovering ? 64 : 32,
         height: isHovering ? 64 : 32,
-        backgroundColor: isHovering ? "rgba(37, 99, 235, 1)" : "transparent"
+        backgroundColor: isHovering ? "rgba(37, 99, 235, 1)" : "rgba(37, 99, 235, 0)"
       }}
       transition={{ type: "spring", stiffness: 500, damping: 28 }}
     >
@@ -262,7 +263,7 @@ export default function App() {
       : [SECTION_BY_ID.business.title];
 
   const togglePortfolio = (id) => {
-    setExpandedPortfolioId(expandedPortfolioId === id ? null : id);
+    setExpandedPortfolioId((currentId) => (currentId === id ? null : id));
   };
 
   return (
@@ -585,36 +586,42 @@ export default function App() {
                {/* Portfolio List */}
                {PORTFOLIO.items.map((item, index) => {
                  const displayNo = String(index + 1).padStart(2, "0");
+                 const isExpanded = expandedPortfolioId === item.id;
                  return (
                    <div key={item.id} className="border-b border-slate-300">
-                     <motion.div 
+                     <motion.button
+                       type="button"
+                       aria-expanded={isExpanded}
+                       aria-controls={`portfolio-panel-${item.id}`}
                        initial={{ backgroundColor: "rgba(255,255,255,0)" }}
-                       whileHover={{ backgroundColor: expandedPortfolioId === item.id ? "rgba(255,255,255,0)" : "rgba(37, 99, 235, 0.05)" }}
+                       animate={{ backgroundColor: isExpanded ? "rgb(15 23 42)" : "rgba(255,255,255,0)" }}
+                       whileHover={{ backgroundColor: isExpanded ? "rgb(15 23 42)" : "rgba(37, 99, 235, 0.05)" }}
                        onClick={() => togglePortfolio(item.id)}
                        onMouseEnter={() => setPortfolioHoverImage(item.image)}
                        onMouseLeave={() => setPortfolioHoverImage(null)}
-                       className={`grid grid-cols-1 md:grid-cols-12 gap-4 py-8 md:py-10 items-center transition-colors group cursor-pointer interactive ${expandedPortfolioId === item.id ? 'bg-slate-900 text-white' : ''}`}
+                       className={`grid w-full grid-cols-1 md:grid-cols-12 gap-4 py-8 md:py-10 items-center text-left transition-colors group cursor-pointer interactive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 ${isExpanded ? 'text-white' : ''}`}
                      >
-                        <div className={`col-span-1 font-mono text-xs md:text-sm pl-2 md:pl-0 ${expandedPortfolioId === item.id ? 'text-blue-400' : 'text-blue-600'}`}>{displayNo}</div>
-                        <div className={`col-span-4 text-3xl md:text-5xl font-black uppercase tracking-tighter transition-all duration-300 ${expandedPortfolioId === item.id ? 'text-white' : 'text-slate-900 group-hover:text-blue-600'}`}>
+                        <div className={`col-span-1 font-mono text-xs md:text-sm pl-2 md:pl-0 ${isExpanded ? 'text-blue-400' : 'text-blue-600'}`}>{displayNo}</div>
+                        <div className={`col-span-4 text-3xl md:text-5xl font-black uppercase tracking-tighter transition-colors duration-300 ${isExpanded ? 'text-slate-50' : 'text-slate-900 group-hover:text-blue-600'}`}>
                           {item.name}
                         </div>
-                        <div className={`col-span-4 font-mono text-sm md:text-lg flex items-center ${expandedPortfolioId === item.id ? 'text-slate-400' : 'text-slate-600'}`}>
-                          <span className={`w-2 h-2 mr-2 rounded-full ${expandedPortfolioId === item.id ? 'bg-blue-500' : 'bg-slate-400 group-hover:bg-blue-600'}`}></span>
+                        <div className={`col-span-4 font-mono text-sm md:text-lg flex items-center ${isExpanded ? 'text-slate-400' : 'text-slate-600'}`}>
+                          <span className={`w-2 h-2 mr-2 rounded-full ${isExpanded ? 'bg-blue-500' : 'bg-slate-400 group-hover:bg-blue-600'}`}></span>
                           {item.category}
                         </div>
-                        <div className={`col-span-2 text-right font-mono font-bold ${expandedPortfolioId === item.id ? 'text-slate-400' : 'text-slate-400 group-hover:text-slate-900'}`}>
+                        <div className={`col-span-2 text-right font-mono font-bold ${isExpanded ? 'text-slate-400' : 'text-slate-400 group-hover:text-slate-900'}`}>
                           {item.year}
                         </div>
                         <div className="col-span-1 flex justify-center">
-                           {expandedPortfolioId === item.id ? <Minus className="text-blue-500" /> : <Plus className="text-slate-400 group-hover:text-blue-600" />}
+                           {isExpanded ? <Minus className="text-blue-500" aria-hidden="true" /> : <Plus className="text-slate-400 group-hover:text-blue-600" aria-hidden="true" />}
                         </div>
-                     </motion.div>
+                     </motion.button>
 
                      {/* Expandable Content */}
                      <AnimatePresence>
-                       {expandedPortfolioId === item.id && (
+                       {isExpanded && (
                          <motion.div
+                           id={`portfolio-panel-${item.id}`}
                            initial={{ height: 0, opacity: 0 }}
                            animate={{ height: "auto", opacity: 1 }}
                            exit={{ height: 0, opacity: 0 }}
