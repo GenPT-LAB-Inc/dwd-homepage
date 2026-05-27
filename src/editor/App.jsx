@@ -830,31 +830,35 @@ const Editor = () => {
                   onChange={(e) => updateAtPath(["contact", "titleLines"], arrayFromText(e.target.value))}
                 />
               </Field>
-              <SectionHeader title="Form" />
+              <SectionHeader title="Contact Details" description="Contact section and footer representative contact information." />
+              <Field label="Contact Note">
+                <TextArea
+                  rows={3}
+                  value={content.contact.contactNote}
+                  onChange={(e) => updateAtPath(["contact", "contactNote"], e.target.value)}
+                />
+              </Field>
+              <Field label="Contact Group Label">
+                <Input value={content.contact.contactLabel} onChange={(e) => updateAtPath(["contact", "contactLabel"], e.target.value)} />
+              </Field>
               <div className="grid gap-4 md:grid-cols-2">
-                <Field label="Name Placeholder">
-                  <Input
-                    value={content.contact.form.namePlaceholder}
-                    onChange={(e) => updateAtPath(["contact", "form", "namePlaceholder"], e.target.value)}
-                  />
+                <Field label="Phone Label">
+                  <Input value={content.contact.phoneLabel} onChange={(e) => updateAtPath(["contact", "phoneLabel"], e.target.value)} />
                 </Field>
-                <Field label="Email Placeholder">
-                  <Input
-                    value={content.contact.form.emailPlaceholder}
-                    onChange={(e) => updateAtPath(["contact", "form", "emailPlaceholder"], e.target.value)}
-                  />
+                <Field label="Phone">
+                  <Input type="tel" inputMode="tel" value={content.contact.phone} onChange={(e) => updateAtPath(["contact", "phone"], e.target.value)} />
                 </Field>
-                <Field label="Message Placeholder">
-                  <Input
-                    value={content.contact.form.messagePlaceholder}
-                    onChange={(e) => updateAtPath(["contact", "form", "messagePlaceholder"], e.target.value)}
-                  />
+                <Field label="Phone Link" help="Use tel:+82200000000 format. Keep it synchronized with the display phone.">
+                  <Input type="tel" inputMode="tel" value={content.contact.phoneHref} onChange={(e) => updateAtPath(["contact", "phoneHref"], e.target.value)} />
                 </Field>
-                <Field label="Submit Label">
-                  <Input
-                    value={content.contact.form.submitLabel}
-                    onChange={(e) => updateAtPath(["contact", "form", "submitLabel"], e.target.value)}
-                  />
+                <Field label="Email Label">
+                  <Input value={content.contact.emailLabel} onChange={(e) => updateAtPath(["contact", "emailLabel"], e.target.value)} />
+                </Field>
+                <Field label="Email">
+                  <Input type="email" spellCheck={false} value={content.contact.email} onChange={(e) => updateAtPath(["contact", "email"], e.target.value)} />
+                </Field>
+                <Field label="Email Link" help="Use mailto:name@example.com format. Keep it synchronized with the display email.">
+                  <Input type="url" spellCheck={false} value={content.contact.emailHref} onChange={(e) => updateAtPath(["contact", "emailHref"], e.target.value)} />
                 </Field>
               </div>
               <SectionHeader title="Address" />
@@ -874,11 +878,8 @@ const Editor = () => {
               <Field label="Map Link Label">
                 <Input value={content.contact.mapLinkLabel} onChange={(e) => updateAtPath(["contact", "mapLinkLabel"], e.target.value)} />
               </Field>
-              <Field label="Contact Label">
-                <Input value={content.contact.contactLabel} onChange={(e) => updateAtPath(["contact", "contactLabel"], e.target.value)} />
-              </Field>
-              <Field label="Contact Email">
-                <Input value={content.contact.email} onChange={(e) => updateAtPath(["contact", "email"], e.target.value)} />
+              <Field label="Map Link URL" help="Use a real map URL. Do not use #.">
+                <Input type="url" spellCheck={false} value={content.contact.mapHref} onChange={(e) => updateAtPath(["contact", "mapHref"], e.target.value)} />
               </Field>
             </Card>
           )}
@@ -924,7 +925,7 @@ const Editor = () => {
                 ))}
                 <button
                   className="rounded border border-dashed border-slate-300 px-3 py-2 text-xs text-slate-500"
-                  onClick={() => addArrayItem(["footer", "links"], { label: "New Link", href: "#" })}
+                  onClick={() => addArrayItem(["footer", "links"], { label: "New Link", href: "" })}
                 >
                   + Add Footer Link
                 </button>

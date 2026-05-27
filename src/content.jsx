@@ -385,36 +385,24 @@ export const CONTACT = {
     "GET IN",
     "TOUCH"
   ],
-  "form": {
-    "namePlaceholder": "NAME",
-    "emailPlaceholder": "EMAIL",
-    "messagePlaceholder": "MESSAGE",
-    "submitLabel": "Send Message"
-  },
+  "contactNote": "사업 제휴 및 투자 문의는 대표 연락처로 접수해 주세요.",
   "headquartersLabel": "HEADQUARTERS",
   "headquartersAddressLines": [
     "Teheran-ro 152, Gangnam-gu",
     "Seoul, South Korea"
   ],
   "mapLinkLabel": "View on Map",
+  "mapHref": "https://maps.google.com/?q=Teheran-ro%20152%2C%20Gangnam-gu%2C%20Seoul%2C%20South%20Korea",
   "contactLabel": "CONTACT",
-  "email": "hello@dwdhc.com"
+  "phoneLabel": "대표전화",
+  "phone": "+82-2-1234-5678",
+  "phoneHref": "tel:+82212345678",
+  "emailLabel": "대표이메일",
+  "email": "sample@example.com",
+  "emailHref": "mailto:sample@example.com"
 };
 
 export const FOOTER = {
   "copyright": "© 2026 DWD HEALTHCARE. ALL RIGHTS RESERVED.",
-  "links": [
-    {
-      "label": "LINKEDIN",
-      "href": "#"
-    },
-    {
-      "label": "TWITTER",
-      "href": "#"
-    },
-    {
-      "label": "PRIVACY POLICY",
-      "href": "#"
-    }
-  ]
+  "links": []
 };

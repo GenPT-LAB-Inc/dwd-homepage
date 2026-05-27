@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Plus, Minus, Dna, Users, MapPin, Menu, X, Layers, TrendingUp, ExternalLink, Microscope, Cpu, Leaf, TestTube, Activity } from 'lucide-react';
+import { ArrowRight, Plus, Minus, Dna, Users, MapPin, Menu, X, Layers, TrendingUp, ExternalLink, Microscope, Cpu, Leaf, TestTube, Activity, Phone, Mail } from 'lucide-react';
 import { BRAND, SECTIONS, HERO, MARQUEE, ABOUT, FOCUS, TEAM, BUSINESS, NETWORK, PORTFOLIO, CONTACT, FOOTER } from './content.jsx';
 
 const ICONS = {
@@ -663,10 +663,10 @@ export default function App() {
         {/* CONTACT */}
         <section id="contact" className="min-h-[80vh] flex flex-col justify-between py-24 px-6 bg-slate-900 text-slate-50">
            <div className="max-w-[1920px] mx-auto w-full">
-             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
                <div>
                 <span className="font-mono text-blue-500 block mb-4">{CONTACT.pretitle}</span>
-                <h2 className="text-6xl md:text-[8rem] font-bold leading-none tracking-tighter mb-12">
+                <h2 className="text-6xl md:text-[8rem] font-bold leading-none tracking-tighter mb-10">
                   {CONTACT.titleLines.map((line, index) => (
                     <React.Fragment key={`${line}-${index}`}>
                       {line}
@@ -674,27 +674,15 @@ export default function App() {
                     </React.Fragment>
                   ))}
                 </h2>
-                <form className="space-y-6 max-w-md">
-                   <div className="border-b border-slate-700 py-2 group focus-within:border-blue-500 transition-colors">
-                      <input type="text" placeholder={CONTACT.form.namePlaceholder} className="w-full bg-transparent outline-none text-xl placeholder-slate-600 py-2 interactive" />
-                    </div>
-                    <div className="border-b border-slate-700 py-2 group focus-within:border-blue-500 transition-colors">
-                      <input type="email" placeholder={CONTACT.form.emailPlaceholder} className="w-full bg-transparent outline-none text-xl placeholder-slate-600 py-2 interactive" />
-                    </div>
-                    <div className="border-b border-slate-700 py-2 group focus-within:border-blue-500 transition-colors">
-                      <textarea placeholder={CONTACT.form.messagePlaceholder} rows="3" className="w-full bg-transparent outline-none text-xl placeholder-slate-600 py-2 resize-none interactive"></textarea>
-                    </div>
-                    <button className="group flex items-center space-x-2 text-xl font-bold uppercase hover:text-blue-500 transition-colors mt-8 interactive">
-                      <span>{CONTACT.form.submitLabel}</span>
-                      <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                    </button>
-                 </form>
+                <p className="max-w-xl text-lg md:text-xl leading-relaxed text-slate-300">
+                  {CONTACT.contactNote}
+                </p>
                </div>
                
-               <div className="flex flex-col justify-end lg:items-end space-y-12">
-                  <div className="space-y-4 text-right">
+               <div className="flex flex-col justify-end space-y-12 lg:items-end">
+                  <address className="not-italic space-y-4 text-left lg:text-right">
                     <h3 className="font-mono text-slate-500">{CONTACT.headquartersLabel}</h3>
-                    <p className="text-2xl font-bold">
+                    <p className="text-2xl font-bold break-words">
                       {CONTACT.headquartersAddressLines.map((line, index) => (
                         <React.Fragment key={`${line}-${index}`}>
                           {line}
@@ -702,28 +690,67 @@ export default function App() {
                         </React.Fragment>
                       ))}
                     </p>
-                    <div className="flex items-center justify-end space-x-2 text-blue-500">
-                      <MapPin size={18} />
-                      <a href="#" className="hover:underline interactive">{CONTACT.mapLinkLabel}</a>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4 text-right">
-                    <h3 className="font-mono text-slate-500">{CONTACT.contactLabel}</h3>
-                    <a href={`mailto:${CONTACT.email}`} className="text-3xl md:text-5xl font-bold hover:text-blue-500 transition-colors underline decoration-2 underline-offset-8 interactive">
-                      {CONTACT.email}
+                    <a
+                      href={CONTACT.mapHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-blue-500 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 interactive"
+                      aria-label={`${CONTACT.mapLinkLabel} - ${CONTACT.headquartersLabel}`}
+                    >
+                      <MapPin size={18} aria-hidden="true" />
+                      <span>{CONTACT.mapLinkLabel}</span>
                     </a>
-                  </div>
+                  </address>
+                  
+                  <address className="not-italic space-y-5 text-left lg:text-right">
+                    <h3 className="font-mono text-slate-500">{CONTACT.contactLabel}</h3>
+
+                    <a
+                      href={CONTACT.phoneHref}
+                      aria-label={`${CONTACT.phoneLabel}: ${CONTACT.phone}`}
+                      className="group flex w-full min-w-0 items-start gap-3 rounded-sm text-slate-50 hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 lg:justify-end interactive"
+                    >
+                      <Phone className="mt-1 h-7 w-7 shrink-0 text-blue-500 md:h-10 md:w-10" aria-hidden="true" />
+                      <span className="min-w-0">
+                        <span className="block font-mono text-sm text-slate-500">{CONTACT.phoneLabel}</span>
+                        <span className="block break-words text-2xl font-bold sm:text-3xl md:text-5xl [overflow-wrap:anywhere]">{CONTACT.phone}</span>
+                      </span>
+                    </a>
+
+                    <a
+                      href={CONTACT.emailHref}
+                      aria-label={`${CONTACT.emailLabel}: ${CONTACT.email}`}
+                      className="group flex w-full min-w-0 items-start gap-3 rounded-sm text-slate-50 hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 lg:justify-end interactive"
+                    >
+                      <Mail className="mt-1 h-6 w-6 shrink-0 text-blue-500 md:h-9 md:w-9" aria-hidden="true" />
+                      <span className="min-w-0">
+                        <span className="block font-mono text-sm text-slate-500">{CONTACT.emailLabel}</span>
+                        <span className="block break-words text-2xl font-bold underline decoration-2 underline-offset-8 md:text-4xl [overflow-wrap:anywhere]">{CONTACT.email}</span>
+                      </span>
+                    </a>
+                  </address>
                </div>
              </div>
            </div>
            
-           <footer className="mt-24 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center font-mono text-xs text-slate-500">
+           <footer className="mt-24 pt-8 border-t border-slate-800 flex flex-col gap-5 font-mono text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
              <p>{FOOTER.copyright}</p>
-             <div className="flex space-x-6 mt-4 md:mt-0">
-               {FOOTER.links.map((link) => (
-                 <a key={link.label} href={link.href} className="hover:text-white interactive">{link.label}</a>
-               ))}
+             <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
+               <address className="not-italic flex flex-wrap justify-center gap-x-4 gap-y-2">
+                 <a href={CONTACT.phoneHref} className="hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 interactive">
+                   {CONTACT.phoneLabel} {CONTACT.phone}
+                 </a>
+                 <a href={CONTACT.emailHref} className="break-all hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 interactive">
+                   {CONTACT.emailLabel} {CONTACT.email}
+                 </a>
+               </address>
+               {FOOTER.links.length > 0 && (
+                 <nav aria-label="Footer links" className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                   {FOOTER.links.map((link) => (
+                     <a key={link.label} href={link.href} className="hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 interactive">{link.label}</a>
+                   ))}
+                 </nav>
+               )}
              </div>
            </footer>
         </section>

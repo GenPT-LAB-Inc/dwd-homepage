@@ -1,8 +1,8 @@
-# content.jsx 편집 매뉴얼 (비개발자용)
+# 콘텐츠 편집 매뉴얼 (비개발자용)
 
-이 문서는 `src/content.jsx` 파일을 안전하게 수정하는 방법을 설명합니다.  
-이제는 **편집기 UI를 사용하는 것을 권장**합니다.
-`src/content.jsx`는 `content.data.json`에서 자동 생성됩니다.
+이 문서는 DWD Home 콘텐츠를 안전하게 수정하는 방법을 설명합니다.
+콘텐츠 원본은 `content.data.json`이며, `src/content.jsx`는 자동 생성 파일입니다.
+가능하면 **편집기 UI를 사용하는 것을 권장**합니다.
 
 ## 기본 원칙
 - 가능하면 **편집기 UI**로 수정하세요 (`npm run editor`).
@@ -84,7 +84,15 @@ Activity, Dna, Microscope, Cpu, TestTube, Leaf, Layers, TrendingUp
 
 ### 10) Contact / Footer
 - 위치: `CONTACT`, `FOOTER`
-- 수정 가능: 문구/이메일/링크 텍스트
+- 대표전화, 대표이메일, 주소, 지도 링크는 `CONTACT`에서 수정합니다.
+- Contact 섹션과 Footer의 대표 연락처는 같은 `CONTACT` 값을 사용합니다.
+- `FOOTER.links`는 LinkedIn, Privacy Policy 같은 추가 푸터 링크만 관리합니다.
+- `CONTACT.phone`은 화면 표시용 전화번호입니다.
+- `CONTACT.phoneHref`는 클릭용 전화 링크이며 `tel:+82200000000` 형식을 사용합니다.
+- `CONTACT.email`은 화면 표시용 이메일입니다.
+- `CONTACT.emailHref`는 클릭용 메일 링크이며 `mailto:hello@dwdhc.com` 형식을 사용합니다.
+- `CONTACT.mapHref`에는 실제 지도 URL을 입력하고 `#`는 사용하지 않습니다.
+- 실제 URL이 확정되지 않은 푸터 링크는 `FOOTER.links`에서 제거합니다.
 
 ## 안전하게 수정하는 방법
 1. 수정할 항목을 찾습니다.
