@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { writeContentFile } from './scripts/generate-content.mjs';
+import { validateContentData, writeContentFile } from './scripts/generate-content.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -56,12 +56,13 @@ function contentEditorPlugin() {
           try {
             const rawBody = await readBody(req);
             const data = JSON.parse(rawBody);
+            validateContentData(data);
             writeBackup();
             fs.writeFileSync(dataPath, JSON.stringify(data, null, 2), 'utf8');
             writeContentFile(data);
             return sendJson(res, 200, { ok: true, savedAt: new Date().toISOString() });
           } catch (err) {
-            return sendJson(res, 400, { error: 'Failed to save content data' });
+            return sendJson(res, 400, { error: err.message || 'Failed to save content data' });
           }
         }
 

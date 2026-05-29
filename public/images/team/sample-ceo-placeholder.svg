@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Sample CEO portrait placeholder</title>
+  <desc id="desc">A neutral placeholder portrait for the sample CEO profile.</desc>
+  <rect width="960" height="1200" fill="#0f172a"/>
+  <rect x="72" y="72" width="816" height="1056" fill="#f8fafc"/>
+  <rect x="120" y="120" width="720" height="960" fill="#e2e8f0"/>
+  <circle cx="480" cy="390" r="150" fill="#1d4ed8"/>
+  <path d="M252 900c32-190 152-302 228-302s196 112 228 302H252z" fill="#0f172a"/>
+  <path d="M300 928h360" stroke="#1d4ed8" stroke-width="24" stroke-linecap="round"/>
+  <text x="480" y="1040" text-anchor="middle" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#0f172a">SAMPLE CEO</text>
+</svg>
